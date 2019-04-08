@@ -32,6 +32,7 @@ private:
 	double galutinis_;
 	vector <double> namu_darbai_;
 public:
+	duomenys(){}
 	inline std::string vardas() const { return vardas_; }
 	inline std::string pavarde() const { return pavarde_; }
 	inline double galutinis() const { return galutinis_; }
@@ -40,6 +41,7 @@ public:
 	void galutinis(char &);
 	void spausdinimas(std::ofstream& out, int &, int &);
 	std::istringstream Duomenu_irasymas(std::istringstream&);
+	~duomenys(){}
 };
 
 bool tikrinimas(duomenys, duomenys);
