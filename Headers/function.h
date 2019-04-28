@@ -32,7 +32,15 @@ private:
 	double galutinis_;
 	vector <double> namu_darbai_;
 public:
-	duomenys(){}
+	duomenys() {}
+	duomenys(const duomenys&);
+	duomenys(duomenys&& s) :
+		vardas_{s.vardas_},
+		pavarde_{s.pavarde_},
+		egzaminas{s.egzaminas_},
+		galutinis_{std::move(s.galutinis_)},
+		namu_darbai_{std::move(s.namu_darbai_)}
+	{}
 	inline std::string vardas() const { return vardas_; }
 	inline std::string pavarde() const { return pavarde_; }
 	inline double galutinis() const { return galutinis_; }
@@ -41,8 +49,34 @@ public:
 	void galutinis(char &);
 	void spausdinimas(std::ofstream& out, int &, int &);
 	std::istringstream Duomenu_irasymas(std::istringstream&);
-	~duomenys(){}
+	duomenys& operator=(const duomenys&);
+	friend std::istream& operator>>(std::istream& in, duomenys& studentas)
+	{
+		in >> studentas.vardas_ >> studentas.pavarde_;
+		double temp;
+		for (int i = 0; i < 10; i++)
+		{
+			in >> temp;
+			studentas.namu_darbai_.push_back(temp);
+		}
+		in >> studentas.egzaminas_;
+		return in;
+	}
+	bool operator==(const duomenys& d)
+	{
+		return galutinis_ == d.galutinis_;
+	}
+	bool operator!=(const duomenys& d)
+	{
+		if (galutinis_ != d.galutinis_)
+			return true;
+		return false;
+	}
+	~duomenys() {}
 };
+
+
+std::ostream& operator<<(std::ostream&, const duomenys&);
 
 bool tikrinimas(duomenys, duomenys);
 bool tikrinimas_gal(duomenys, duomenys);
