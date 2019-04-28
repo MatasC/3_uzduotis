@@ -157,9 +157,12 @@ Taip pat verta paminėti, kad šioje versijoje buvo pastebėta ir sutvarkyta atm
 ### v0.4
 Tikrintos programos turėjo po 100, 1 000, 10 000, 100 000, 1 000 000 eilučių ir 10 namų darbų pažymių. Studentų skirstymas buvo neteisingas ir buvo pataisytas versijoje v0.5 (iki v0.5 studentai buvo išskirstomi prieš pat išvedimą if'u patikrinant jų galutinį pažymį). Taip parašyta programa, eilučių skaičiui padidėjus 10 kartų, sulėtėdavo apytiksliai 10 (paskutinės dvi iteracijos sulėtėdavo netgi šiek tiek daugiau nei 10 kartų). daugiausiai laiko užimdavo failų sugeneravimas ir išvedimas (kadangi atrinkimas į gerus ir blogus buvo atliekamas išvedant duomenis).
 ## Versijų istorija
+### [v1.2](https://github.com/MatasC/3_uzduotis/releases/tag/v1.2) - (2019–04–28)
+**Pridėta**  
+-Visi logiški operatoriai (pvz. input, output operatoriai).  
 ### [v1.1](https://github.com/MatasC/3_uzduotis/releases/tag/v1.1) - (2019–04–08)  
 **Pridėta**  
--Klasė ``Timer``, kuri atlieka laiko skaičiavimo funkciją ir skaičiavimo rezultatus išveda į tekstinį failą ``Laiku_Suvestine.txt``.
+-Klasė ``Timer``, kuri atlieka laiko skaičiavimo funkciją ir skaičiavimo rezultatus išveda į tekstinį failą ``Laiku_Suvestine.txt``.  
 **Koreguota**  
 -Duomenų saugojimo struktūra perdaryta į klasę.  
 -Pakeistos atitinkamos funkcijos tam, kad programa veiktų su naujai sukurta klase.  
