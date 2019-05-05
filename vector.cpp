@@ -1,30 +1,12 @@
 #include "Headers/function.h"
 
-duomenys::duomenys(duomenys&& studentas)
+std::ostream& operator<<(std::ostream& out, const Studentas& studentas)
 {
-	cout<<"LABAS"<<endl;
-	vardas_ = std::move(studentas.vardas_);
-	pavarde_ = std::move(studentas.pavarde_);
-	egzaminas_ = std::move(studentas.egzaminas_);
-	galutinis_ = std::move(studentas.galutinis_);
-	namu_darbai_ = std::move(studentas.namu_darbai_);
+	out << studentas.vardas() << " " << studentas.pavarde() << " " << studentas.galutinis() << endl;
+	return out;
 }
 
-duomenys::duomenys(const duomenys& studentas)
-{
-	vardas_ = studentas.vardas_;
-	pavarde_ = studentas.pavarde_;
-	egzaminas_ = studentas.egzaminas_;
-	galutinis_ = studentas.galutinis_;
-	namu_darbai_ = studentas.namu_darbai_;
-}
-
-std::ostream& operator<<(std::ostream out, const duomenys& studentas)
-{
-	out << studentas.vardas() << studentas.pavarde() << studentas.galutinis() << endl;
-}
-
-duomenys& duomenys::operator=(const duomenys& studentas)
+Studentas& Studentas::operator=(const Studentas& studentas)
 {
 	if (&studentas == this) return *this;
 
@@ -36,7 +18,7 @@ duomenys& duomenys::operator=(const duomenys& studentas)
 	return *this;
 }
 
-void duomenys::galutinis(char &pasirinkimas)
+void Studentas::galutinis(char &pasirinkimas)
 {
 	switch (pasirinkimas)
 	{
@@ -85,12 +67,12 @@ void duomenys::galutinis(char &pasirinkimas)
 	}
 }
 
-void duomenys::spausdinimas(std::ofstream& out, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+void Studentas::spausdinimas(std::ofstream& out, int &ilgiausias_vardas, int &ilgiausia_pavarde)
 {
 	out << std::setw(ilgiausias_vardas + 2) << std::left << vardas_ << std::setw(ilgiausia_pavarde + 2) << std::left << pavarde_ << std::fixed << std::setprecision(2) << std::setw(4) << std::left << galutinis_ << endl;
 }
 
-std::istringstream duomenys::Duomenu_irasymas(std::istringstream& skaitymas)
+std::istringstream Studentas::Duomenu_irasymas(std::istringstream& skaitymas)
 {
 	skaitymas >> vardas_;
 	skaitymas >> pavarde_;
@@ -113,7 +95,7 @@ std::istringstream duomenys::Duomenu_irasymas(std::istringstream& skaitymas)
 	return end;
 }
 
-void skaitymas(vector <duomenys> &studentai, int i, char &pasirinkimas)
+void skaitymas(vector <Studentas> &studentai, int i, char &pasirinkimas)
 {
 	std::ifstream in;
 	in.open("mokiniai" + std::to_string(i + 1) + ".txt");
@@ -130,7 +112,7 @@ void skaitymas(vector <duomenys> &studentai, int i, char &pasirinkimas)
 	while (getline(in, eilute))
 	{
 		std::istringstream skaityti(eilute);
-		studentai.push_back(duomenys());
+		studentai.push_back(Studentas());
 		studentai[temp].Duomenu_irasymas(skaityti);
 		studentai[temp].galutinis(pasirinkimas);
 		temp++;
@@ -138,7 +120,7 @@ void skaitymas(vector <duomenys> &studentai, int i, char &pasirinkimas)
 	in.close();
 }
 
-void isvedimas(vector <duomenys> &blogi, vector <duomenys> &geri, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+void isvedimas(vector <Studentas> &blogi, vector <Studentas> &geri, int &ilgiausias_vardas, int &ilgiausia_pavarde)
 {
 	std::ofstream out1("geri.txt");
 	std::ofstream out2("blogi.txt");
@@ -159,53 +141,53 @@ void isvedimas(vector <duomenys> &blogi, vector <duomenys> &geri, int &ilgiausia
 	out2.close();
 }
 
-void ilgio_nustatymas(vector<duomenys>& studentai, int &ilgiausias_vardas, int& ilgiausia_pavarde)
+void ilgio_nustatymas(vector<Studentas>& studentai, int &ilgiausias_vardas, int& ilgiausia_pavarde)
 {
-	std::vector<duomenys>::iterator it = std::max_element(studentai.begin(), studentai.end(), tikrinimas_vard);
+	std::vector<Studentas>::iterator it = std::max_element(studentai.begin(), studentai.end(), tikrinimas_vard);
 	ilgiausias_vardas = it->vard_ilgis();
 	it = std::max_element(studentai.begin(), studentai.end(), tikrinimas_pavard);
 	ilgiausia_pavarde = it->pavard_ilgis();
 }
 
-void atrinkimas_1(vector <duomenys>& studentai, vector <duomenys>& blogi, vector <duomenys>& geri)
+void atrinkimas_1(vector <Studentas>& studentai, vector <Studentas>& blogi, vector <Studentas>& geri)
 {
 	sort(studentai.begin(), studentai.end(), tikrinimas_gal);
-	std::vector<duomenys>::iterator it = std::find_if(studentai.begin(), studentai.end(), tikrinimas_5);
+	std::vector<Studentas>::iterator it = std::find_if(studentai.begin(), studentai.end(), tikrinimas_5);
 	std::copy(it, studentai.end(), std::back_inserter(geri));
 	studentai.resize(studentai.size() - geri.size());
 std: copy(studentai.begin(), it, std::back_inserter(blogi));
 	studentai.clear();
 }
-void atrinkimas_2(vector <duomenys>& studentai, vector<duomenys> &blogi)
+void atrinkimas_2(vector <Studentas>& studentai, vector<Studentas> &blogi)
 {
 	sort(studentai.begin(), studentai.end(), tikrinimas_gal);
-	std::vector<duomenys>::iterator it = std::find_if(studentai.begin(), studentai.end(), tikrinimas_5);
+	std::vector<Studentas>::iterator it = std::find_if(studentai.begin(), studentai.end(), tikrinimas_5);
 	std::copy(it, studentai.end(), std::back_inserter(blogi));
 	studentai.resize(studentai.size() - blogi.size());
 }
 
 
-bool tikrinimas(duomenys stud1, duomenys stud2)
+bool tikrinimas(Studentas stud1, Studentas stud2)
 {
 	return stud1.vardas() < stud2.vardas();
 }
 
-bool tikrinimas_gal(duomenys stud1, duomenys stud2)
+bool tikrinimas_gal(Studentas stud1, Studentas stud2)
 {
 	return stud1.galutinis() < stud2.galutinis();
 }
 
-bool tikrinimas_5(duomenys stud1)
+bool tikrinimas_5(Studentas stud1)
 {
 	return stud1.galutinis() == 5;
 }
 
-bool tikrinimas_vard(duomenys stud1, duomenys stud2)
+bool tikrinimas_vard(Studentas stud1, Studentas stud2)
 {
 	return stud1.vard_ilgis() < stud2.vard_ilgis();
 }
 
-bool tikrinimas_pavard(duomenys stud1, duomenys stud2)
+bool tikrinimas_pavard(Studentas stud1, Studentas stud2)
 {
 	return stud1.pavard_ilgis() < stud2.pavard_ilgis();
 }

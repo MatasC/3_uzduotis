@@ -23,34 +23,38 @@ using std::vector;
 using std::list;
 using std::deque;
 
-class duomenys
+class Zmogus
 {
-private:
+protected:
 	string vardas_;
 	string pavarde_;
+public:
+	virtual void fun() = 0;
+	Zmogus(const string& a = " ", const string& b = " ") : vardas_{a}, pavarde_{b} {}
+	Zmogus(string&& a, string&& b) : vardas_{a}, pavarde_{b} {}
+	inline std::string vardas() const { return vardas_; }
+	inline std::string pavarde() const { return pavarde_; }
+	inline int vard_ilgis() const { return vardas_.length(); }
+	inline int pavard_ilgis() const { return pavarde_.length(); }
+	~Zmogus() {}
+};
+class Studentas : public Zmogus
+{
+private:
 	double egzaminas_;
 	double galutinis_;
 	vector <double> namu_darbai_;
 public:
-	duomenys() {}
-	duomenys(const duomenys&);
-	duomenys(duomenys&& s) :
-		vardas_{s.vardas_},
-		pavarde_{s.pavarde_},
-		egzaminas{s.egzaminas_},
-		galutinis_{std::move(s.galutinis_)},
-		namu_darbai_{std::move(s.namu_darbai_)}
-	{}
-	inline std::string vardas() const { return vardas_; }
-	inline std::string pavarde() const { return pavarde_; }
+	void fun() {};
+	Studentas(const string& a = " ", const string& b = " ", const double& egz = 10) : Zmogus(a, b), egzaminas_{egz} {}
+	Studentas(const Studentas& a) : Zmogus(a.vardas_, a.pavarde_), egzaminas_{a.egzaminas_}, galutinis_{a.galutinis_}, namu_darbai_{a.namu_darbai_} {}
+	Studentas(Studentas&& a) : Zmogus(std::move(a.vardas_), std::move(a.pavarde_)), egzaminas_{std::move(a.egzaminas_)}, galutinis_{std::move(a.galutinis_)}, namu_darbai_{std::move(a.namu_darbai_)} {}
 	inline double galutinis() const { return galutinis_; }
-	inline int vard_ilgis() const { return vardas_.length(); }
-	inline int pavard_ilgis() const { return pavarde_.length(); }
 	void galutinis(char &);
 	void spausdinimas(std::ofstream& out, int &, int &);
 	std::istringstream Duomenu_irasymas(std::istringstream&);
-	duomenys& operator=(const duomenys&);
-	friend std::istream& operator>>(std::istream& in, duomenys& studentas)
+	Studentas& operator=(const Studentas&);
+	friend std::istream& operator>>(std::istream& in, Studentas& studentas)
 	{
 		in >> studentas.vardas_ >> studentas.pavarde_;
 		double temp;
@@ -59,40 +63,37 @@ public:
 			in >> temp;
 			studentas.namu_darbai_.push_back(temp);
 		}
-		in >> studentas.egzaminas_;
+		in >> studentas.egzaminas_ >> studentas.galutinis_;
 		return in;
 	}
-	bool operator==(const duomenys& d)
+	bool operator==(const Studentas& d)
 	{
 		return galutinis_ == d.galutinis_;
 	}
-	bool operator!=(const duomenys& d)
+	bool operator!=(const Studentas& d)
 	{
-		if (galutinis_ != d.galutinis_)
-			return true;
-		return false;
+		return galutinis_ != d.galutinis_;
 	}
-	~duomenys() {}
+	~Studentas() {}
 };
 
+std::ostream& operator<<(std::ostream&, const Studentas&);
 
-std::ostream& operator<<(std::ostream&, const duomenys&);
-
-bool tikrinimas(duomenys, duomenys);
-bool tikrinimas_gal(duomenys, duomenys);
-bool tikrinimas_5(duomenys);
-bool tikrinimas_vard(duomenys, duomenys);
-bool tikrinimas_pavard(duomenys, duomenys);
+bool tikrinimas(Studentas, Studentas);
+bool tikrinimas_gal(Studentas, Studentas);
+bool tikrinimas_5(Studentas);
+bool tikrinimas_vard(Studentas, Studentas);
+bool tikrinimas_pavard(Studentas, Studentas);
 char Ivestis_kr(char);
 
-void skaitymas(vector <duomenys>&, int, char&);
+void skaitymas(vector <Studentas>&, int, char&);
 
-void ilgio_nustatymas(vector<duomenys>&, int&, int&);
+void ilgio_nustatymas(vector<Studentas>&, int&, int&);
 
-void isvedimas(vector <duomenys>&, vector <duomenys>&, int&, int&);
+void isvedimas(vector <Studentas>&, vector <Studentas>&, int&, int&);
 
-void atrinkimas_1(vector <duomenys>&, vector <duomenys>&, vector <duomenys>&);
-void atrinkimas_2(vector <duomenys>&, vector<duomenys>&);
+void atrinkimas_1(vector <Studentas>&, vector <Studentas>&, vector <Studentas>&);
+void atrinkimas_2(vector <Studentas>&, vector<Studentas>&);
 
 void generavimas(std::ofstream&, int);
 

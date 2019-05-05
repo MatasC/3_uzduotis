@@ -3,10 +3,6 @@
 int main()
 {
     char pasirinkimas, pasirinkimas_str;
-    duomenys v;
-    cin>>v;
-    duomenys b{v};
-    cout<<b.vardas()<<endl;
     cout << "Ar studentus skirstyti pagal pirma (1), ar pagal antra (2) strategija: ";
     pasirinkimas_str = Ivestis_kr(pasirinkimas_str);
     switch (pasirinkimas_str)
@@ -22,7 +18,7 @@ int main()
         for (int i = 0; i < 2; i++)
         {
             cout << "Apdorojami " << i + 1 << "-ieji duomenys." << endl;
-            vector <duomenys> studentai, blogi;
+            vector <Studentas> studentai, blogi;
             Time laikas;
             laikas.Start_clock();
             studentai.reserve(skaicius);
@@ -50,7 +46,7 @@ int main()
         for (int i = 0; i < 2; i++)
         {
             cout << "Apdorojami " << i + 1 << "-ieji duomenys." << endl;
-            vector <duomenys> studentai, geri, blogi;
+            vector <Studentas> studentai, geri, blogi;
             Time laikas;
             laikas.Start_clock();
             studentai.reserve(skaicius);
