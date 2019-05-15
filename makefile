@@ -1,5 +1,5 @@
 vector: vector.o generating.o Time.o
-	g++ -o vector 2_uzduotis_vector.cpp vector.o Time.o
+	g++ -o vector Bandymas.cpp vector.o Time.o
 	g++ -o generavimas generavimas.cpp generating.o
 	./generavimas
 	./vector

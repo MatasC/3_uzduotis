@@ -95,7 +95,7 @@ std::istringstream Studentas::Duomenu_irasymas(std::istringstream& skaitymas)
 	return end;
 }
 
-void skaitymas(vector <Studentas> &studentai, int i, char &pasirinkimas)
+void skaitymas(Vector <Studentas> &studentai, int i, char &pasirinkimas)
 {
 	std::ifstream in;
 	in.open("mokiniai" + std::to_string(i + 1) + ".txt");
@@ -107,7 +107,7 @@ void skaitymas(vector <Studentas> &studentai, int i, char &pasirinkimas)
 		cout << e.what();
 		exit(0);
 	}
-	int temp = 0;
+	int temp = 0, x = 0;
 	string eilute;
 	while (getline(in, eilute))
 	{
@@ -120,7 +120,7 @@ void skaitymas(vector <Studentas> &studentai, int i, char &pasirinkimas)
 	in.close();
 }
 
-void isvedimas(vector <Studentas> &blogi, vector <Studentas> &geri, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+void isvedimas(Vector <Studentas> &blogi, Vector <Studentas> &geri, int &ilgiausias_vardas, int &ilgiausia_pavarde)
 {
 	std::ofstream out1("geri.txt");
 	std::ofstream out2("blogi.txt");
@@ -141,29 +141,43 @@ void isvedimas(vector <Studentas> &blogi, vector <Studentas> &geri, int &ilgiaus
 	out2.close();
 }
 
-void ilgio_nustatymas(vector<Studentas>& studentai, int &ilgiausias_vardas, int& ilgiausia_pavarde)
+void ilgio_nustatymas(Vector<Studentas>& studentai, int &ilgiausias_vardas, int& ilgiausia_pavarde)
 {
-	std::vector<Studentas>::iterator it = std::max_element(studentai.begin(), studentai.end(), tikrinimas_vard);
-	ilgiausias_vardas = it->vard_ilgis();
-	it = std::max_element(studentai.begin(), studentai.end(), tikrinimas_pavard);
-	ilgiausia_pavarde = it->pavard_ilgis();
+	int max_v = -1, max_p = -1;
+	for (int i = 0; i < studentai.size(); i++)
+	{
+		if (studentai[i].vard_ilgis() > max_v)
+			max_v = studentai[i].vard_ilgis();
+		if (studentai[i].pavard_ilgis() > max_p)
+			max_p = studentai[i].pavard_ilgis();
+	}
+	ilgiausias_vardas = max_v;
+	ilgiausia_pavarde = max_p;
 }
 
-void atrinkimas_1(vector <Studentas>& studentai, vector <Studentas>& blogi, vector <Studentas>& geri)
+void atrinkimas_1(Vector <Studentas>& studentai, Vector <Studentas>& blogi, Vector <Studentas>& geri)
 {
 	sort(studentai.begin(), studentai.end(), tikrinimas_gal);
-	std::vector<Studentas>::iterator it = std::find_if(studentai.begin(), studentai.end(), tikrinimas_5);
-	std::copy(it, studentai.end(), std::back_inserter(geri));
-	studentai.resize(studentai.size() - geri.size());
-std: copy(studentai.begin(), it, std::back_inserter(blogi));
+	
+	cout<<"Ar cia?"<<endl;
+
+	auto it = std::find_if(studentai.begin(), studentai.end(), tikrinimas_5);
+	cout<<"Ar cia?"<<endl;
+	geri.reserve(studentai.size());
+	std::copy(it, studentai.end(), geri.begin());
+	geri.shrink_to_fit();
+	blogi.reserve(studentai.size() - geri.size());
+	std::copy(studentai.begin(), it, blogi.begin());
 	studentai.clear();
 }
-void atrinkimas_2(vector <Studentas>& studentai, vector<Studentas> &blogi)
+void atrinkimas_2(Vector <Studentas>& studentai, Vector<Studentas> &blogi)
 {
 	sort(studentai.begin(), studentai.end(), tikrinimas_gal);
-	std::vector<Studentas>::iterator it = std::find_if(studentai.begin(), studentai.end(), tikrinimas_5);
-	std::copy(it, studentai.end(), std::back_inserter(blogi));
+	Studentas* it = std::find_if(studentai.begin(), studentai.end(), tikrinimas_5);
+	blogi.reserve(studentai.size());
+	std::copy(it, studentai.end(), blogi.begin());
 	studentai.resize(studentai.size() - blogi.size());
+	blogi.shrink_to_fit();
 }
 
 

@@ -1,6 +1,5 @@
 #ifndef FUNCTION
 #define FUNCTION
-#include<iostream>
 #include<stdlib.h>
 #include<fstream>
 #include<stdio.h>
@@ -8,20 +7,16 @@
 #include<iomanip>
 #include<random>
 #include<algorithm>
-#include<vector>
+#include"vector.h"
 #include<sstream>
 #include<ctype.h>
 #include<chrono>
-#include<list>
-#include<deque>
-#include<iterator>
 using std::cout;
 using std::cin;
 using std::string;
 using std::endl;
 using std::vector;
-using std::list;
-using std::deque;
+using std::sort;
 
 class Zmogus
 {
@@ -43,7 +38,7 @@ class Studentas : public Zmogus
 private:
 	double egzaminas_;
 	double galutinis_;
-	vector <double> namu_darbai_;
+	Vector <double> namu_darbai_;
 public:
 	void fun() {};
 	Studentas(const string& a = " ", const string& b = " ", const double& egz = 10) : Zmogus(a, b), egzaminas_{egz} {}
@@ -86,14 +81,14 @@ bool tikrinimas_vard(Studentas, Studentas);
 bool tikrinimas_pavard(Studentas, Studentas);
 char Ivestis_kr(char);
 
-void skaitymas(vector <Studentas>&, int, char&);
+void skaitymas(Vector <Studentas>&, int, char&);
 
-void ilgio_nustatymas(vector<Studentas>&, int&, int&);
+void ilgio_nustatymas(Vector<Studentas>&, int&, int&);
 
-void isvedimas(vector <Studentas>&, vector <Studentas>&, int&, int&);
+void isvedimas(Vector <Studentas>&, Vector <Studentas>&, int&, int&);
 
-void atrinkimas_1(vector <Studentas>&, vector <Studentas>&, vector <Studentas>&);
-void atrinkimas_2(vector <Studentas>&, vector<Studentas>&);
+void atrinkimas_1(Vector <Studentas>&, Vector <Studentas>&, Vector <Studentas>&);
+void atrinkimas_2(Vector <Studentas>&, Vector<Studentas>&);
 
 void generavimas(std::ofstream&, int);
 

@@ -18,7 +18,7 @@ int main()
         for (int i = 0; i < 2; i++)
         {
             cout << "Apdorojami " << i + 1 << "-ieji duomenys." << endl;
-            vector <Studentas> studentai, blogi;
+            Vector <Studentas> studentai, blogi;
             Time laikas;
             laikas.Start_clock();
             studentai.reserve(skaicius);
@@ -46,14 +46,17 @@ int main()
         for (int i = 0; i < 2; i++)
         {
             cout << "Apdorojami " << i + 1 << "-ieji duomenys." << endl;
-            vector <Studentas> studentai, geri, blogi;
+            Vector <Studentas> studentai, geri, blogi;
             Time laikas;
             laikas.Start_clock();
             studentai.reserve(skaicius);
             skaitymas(studentai, i, pasirinkimas);
             int ilgiausias_vardas = 6, ilgiausia_pavarde = 7;
             ilgio_nustatymas(studentai, ilgiausias_vardas, ilgiausia_pavarde);
+            cout<<"labas"<<endl;
             atrinkimas_1(studentai, blogi, geri);
+                        cout<<"labas"<<endl;
+
             isvedimas(blogi, geri, ilgiausias_vardas, ilgiausia_pavarde);
             studentai.clear();
             blogi.clear();
