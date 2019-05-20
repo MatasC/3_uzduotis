@@ -196,7 +196,9 @@ Tikrintos programos turėjo po 100, 1 000, 10 000, 100 000, 1 000 000 eilučių 
 -Atlikti Unit testa'ai naudojant Google Test. Norint paleisti šiuos testus reikia parasyt komandas make ir ./runTests esant pagrindiniame programos aplankale.  
 ### [v1.5](https://github.com/MatasC/3_uzduotis/releases/tag/v1.5) - (2019-05-06)
 **Koreguota**  
--duomenų klasė buvo pakeista į dvi klases: bazinę klasę ``Zmogus`` ir išvestinę klasę ``Studentas``. Bazinės klasės sukurti neįmanoma, galima sukurti tik Studentas klasė (Bazinė yra abstrakti klasė).  
+-duomenų klasė buvo pakeista į dvi klases: bazinę klasę ``Zmogus`` ir išvestinę klasę ``Studentas``. Bazinės klasės sukurti neįmanoma, galima sukurti tik Studentas klasė (Bazinė yra abstrakti klasė). 
+### [v1.2.1](https://github.com/MatasC/3_uzduotis/releases/tag/v1.2.1) - (2019 - 05-20)
+-Programos veikimo taisymai.  
 ### [v1.2](https://github.com/MatasC/3_uzduotis/releases/tag/v1.2) - (2019–04–28)
 **Pridėta**  
 -Visi logiški operatoriai (pvz. input, output operatoriai).  
