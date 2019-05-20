@@ -1,0 +1,6 @@
+1 strategija - Vector: 
+10000 eiluciu failo apdorojimo laikas = 0.235794 s.
+100000 eiluciu failo apdorojimo laikas = 2.49915 s.
+1 strategija - Vector: 
+10000 eiluciu failo apdorojimo laikas = 0.140179 s.
+100000 eiluciu failo apdorojimo laikas = 1.38956 s.
